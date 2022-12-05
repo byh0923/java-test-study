@@ -1,10 +1,15 @@
 package com.example.thejavatest;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
+
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
@@ -12,7 +17,15 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기")
+    @Tag("fast")
     void create_new_study() {
+
+        String test_env = System.getenv("TEST_ENV");
+        System.out.println(test_env);
+        assumeTrue("LOCAL".equalsIgnoreCase(test_env));
+
+
+
         Study study = new Study();
 
         IllegalArgumentException exception =
@@ -36,6 +49,7 @@ class StudyTest {
     }
 
     @Test
+    @Tag("slow") // tag를 통해 그룹화 할 수 있음.
     void create_new_study_again() {
         System.out.println("create1");
     }
