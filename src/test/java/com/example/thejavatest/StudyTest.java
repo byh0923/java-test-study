@@ -17,7 +17,8 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기")
-    @Tag("fast")
+    @FastTest
+        //@Tag("fast") => TypeSafe하지 않음.
     void create_new_study() {
 
         String test_env = System.getenv("TEST_ENV");
