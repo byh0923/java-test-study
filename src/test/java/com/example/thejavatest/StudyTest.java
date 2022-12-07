@@ -3,6 +3,12 @@ package com.example.thejavatest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Duration;
 
@@ -74,5 +80,23 @@ class StudyTest {
     @AfterEach
     void afterEach() {
         System.out.println("After each");
+    }
+
+    @DisplayName("스터디 만들기")
+    @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+    void repeatedTest(RepetitionInfo repetitionInfo) {
+        System.out.println("test");
+    }
+
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+    @ValueSource(strings = {"날짜가", "많이", "추워지고", "있네요."})
+    @NullAndEmptySource
+    void parameterizedTest(String message) {
+        System.out.println(message);
+    }
+
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+    @CsvSource({"10, 자바스터디", "20, 스프링"})
+    void parameterizedTest2(ArgumentsAccessor argumentsAccessor) {
     }
 }
