@@ -18,10 +18,16 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // 하나의 인스턴스로 공유하게 된다.
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
+    // 전역변수로 선언하면 메서드에서 사용을 해도 계속 1만 찍힘
+    // 서로 다른 객체이기 떄문임
+    int value = 1;
 
     @Test
+    @Order(1)
     @DisplayName("스터디 만들기")
     @FastTest
         //@Tag("fast") => TypeSafe하지 않음.
